@@ -1,29 +1,48 @@
-import {AllowNull, AutoIncrement, Column, Model, NotEmpty, PrimaryKey, Table} from "sequelize-typescript";
-import {iProject} from "../interfaces/iProject";
-
+import {
+  AllowNull,
+  AutoIncrement,
+  BelongsToMany,
+  Column,
+  Model,
+  NotEmpty,
+  PrimaryKey,
+  Table
+} from 'sequelize-typescript';
+import {
+  iCategory,
+  iProject
+} from '../interfaces/iProject';
+import User from './user.model';
+import UserProject from './userProject.model';
 
 @Table({
-    tableName: 'project',
-    timestamps: true
+  tableName: 'project',
+  timestamps: true
 })
-export default class Project extends Model implements iProject{
-    @AutoIncrement
-    @PrimaryKey
-    @Column
-    id?: number;
+export default class Project extends Model
+  implements iProject {
+  @AutoIncrement
+  @PrimaryKey
+  @Column
+  id?: number;
 
-    @Column
-    category: string;
+  @Column
+  category: iCategory;
 
-    @Column
-    description: string;
+  @Column
+  description: string;
 
-    @AllowNull(false)
-    @NotEmpty
-    @Column
-    name: string;
+  @AllowNull(false)
+  @NotEmpty
+  @Column
+  name: string;
 
-    @Column
-    url: string;
+  @Column
+  url: string;
 
+  @BelongsToMany(
+    () => User,
+    () => UserProject
+  )
+  users: User[];
 }

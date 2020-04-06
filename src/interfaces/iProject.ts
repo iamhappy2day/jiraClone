@@ -5,5 +5,11 @@ export interface iProject extends Model{
     name: string;
     url: string;
     description: string;
-    category: string;
+    category: iCategory;
+}
+
+export enum iCategory {
+    SOFTWARE = 'software',
+    MARKETING = 'marketing',
+    BUSINESS = 'business',
 }

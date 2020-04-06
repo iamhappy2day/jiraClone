@@ -1,13 +1,16 @@
 import {
   AllowNull,
   AutoIncrement,
+  BelongsToMany,
   Column,
   Model,
   NotEmpty,
   PrimaryKey,
-  Table,
+  Table
 } from 'sequelize-typescript';
 import { iUser } from '../interfaces/iUser';
+import Project from './project.model';
+import UserProject from './userProject.model';
 
 @Table({
   tableName: 'user',
@@ -32,4 +35,9 @@ export default class User extends Model implements iUser {
   @Column
   password!: string;
 
+  @BelongsToMany(
+    () => Project,
+    () => UserProject
+  )
+  projects: Project[];
 }
