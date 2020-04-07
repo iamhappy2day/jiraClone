@@ -17,12 +17,12 @@ export class UserController {
   }
 
   async createUser(req: Request, res: Response) {
-    const newUser = new User({
+    const newUser =  User.create({
       email: req.body.email,
       password: req.body.password,
       name: req.body.name
     });
-    newUser.save();
+
     res.status(201).send(newUser);
   }
 

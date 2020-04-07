@@ -8,7 +8,7 @@ import Project from './project.model';
 import {iUserProject} from "../interfaces/iUserProject";
 
 @Table({
-    tableName: 'userProject'
+    tableName: 'userProject',
 })
 export default class UserProject extends Model
   implements iUserProject {
