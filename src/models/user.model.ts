@@ -3,6 +3,7 @@ import {
   AutoIncrement,
   BelongsToMany,
   Column,
+  HasMany,
   Model,
   NotEmpty,
   PrimaryKey,
@@ -11,6 +12,7 @@ import {
 import { iUser } from '../interfaces/iUser';
 import Project from './project.model';
 import UserProject from './userProject.model';
+import Comment from './comment.model';
 
 @Table({
   tableName: 'user',
@@ -40,4 +42,7 @@ export default class User extends Model implements iUser {
     () => UserProject
   )
   projects: Project[];
+
+  @HasMany(() => Comment)
+  comments: Comment[];
 }

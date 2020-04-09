@@ -1,10 +1,10 @@
 import { CommentService } from './commentService';
 import { Request, Response } from 'express';
-
 const commentService = new CommentService();
 export class CommentController {
   async getAllComments(req: Request, res: Response) {
     const comments = await commentService.getAllComments();
+    res.status(200).send(comments);
   }
 
   async getCommentById(req: Request, res: Response) {
@@ -16,7 +16,8 @@ export class CommentController {
 
   async updateComment(req: Request, res: Response) {
     const updatedComment = await commentService.updateComment(
-      req.params.id
+      req.params.id,
+      req.body.commentBody
     );
     res.status(200).send(updatedComment);
   }
@@ -25,6 +26,14 @@ export class CommentController {
     const deletedComment = await commentService.deleteComment(
       req.params.id
     );
-    res.status(200).send(deletedComment);
+    res.status(200).send({ deletedComment });
+  }
+
+  async createComment(req: Request, res: Response) {
+    const newComment = await commentService.createComment(
+      req.body.commentBody,
+      req.body.userId
+    );
+    res.status(201).send(newComment);
   }
 }

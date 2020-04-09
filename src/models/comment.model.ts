@@ -1,20 +1,40 @@
-import {AllowNull, AutoIncrement, Column, Model, NotEmpty, NotNull, PrimaryKey, Table} from "sequelize-typescript";
-import {iComment} from "../interfaces/iComment";
+import {
+  AllowNull,
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  ForeignKey,
+  Model,
+  NotEmpty,
+  PrimaryKey,
+  Table
+} from 'sequelize-typescript';
+import { iComment } from '../interfaces/iComment';
+import User from './user.model';
 
 @Table({
-    tableName: 'comments',
-    timestamps: true
+  tableName: 'comments',
+  timestamps: true
 })
+export default class Comment extends Model
+  implements iComment {
+  @PrimaryKey
+  @AutoIncrement
+  @Column
+  id?: number;
 
-export default class Comment extends Model implements iComment {
+  @NotEmpty
+  @AllowNull(false)
+  @Column
+  commentBody: string;
 
-    @PrimaryKey
-    @AutoIncrement
-    @Column
-    id?: number;
+  @ForeignKey(() => User)
+  @Column
+  userId: number;
 
-    @NotEmpty
-    @AllowNull(false)
-    @Column
-    body: string
+  @BelongsTo(
+    () => User,
+    {onDelete: 'CASCADE', hooks: true}
+  )
+  user: User;
 }

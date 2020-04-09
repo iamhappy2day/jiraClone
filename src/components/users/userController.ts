@@ -17,7 +17,7 @@ export class UserController {
   }
 
   async createUser(req: Request, res: Response) {
-    const newUser =  User.create({
+    const newUser = await User.create({
       email: req.body.email,
       password: req.body.password,
       name: req.body.name

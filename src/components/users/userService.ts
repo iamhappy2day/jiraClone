@@ -1,9 +1,10 @@
 import User from '../../models/user.model';
 import { iUser } from '../../interfaces/iUser';
-
+import Project from "../../models/project.model";
+import Comment from "../../models/comment.model";
 export class UserService {
   async getAllUsers() {
-    const users = await User.findAll();
+    const users = await User.findAll({include: [Project, Comment]});
     return users;
   }
 
