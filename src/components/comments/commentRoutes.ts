@@ -1,15 +1,16 @@
 import express from 'express';
 import { CommentController } from './commentController';
+import { catchErrors } from '../../errors/errorHandler';
 export const commentRouter = express.Router();
 const commentController = new CommentController();
 
 commentRouter
   .route('/')
-  .get(commentController.getAllComments)
-  .post(commentController.createComment);
+  .get(catchErrors(commentController.getAllComments))
+  .post(catchErrors(commentController.createComment));
 
 commentRouter
   .route('/:id')
-  .get(commentController.getCommentById)
-  .delete(commentController.deleteComment)
-  .put(commentController.updateComment);
+  .get(catchErrors(commentController.getCommentById))
+  .delete(catchErrors(commentController.deleteComment))
+  .put(catchErrors(commentController.updateComment));

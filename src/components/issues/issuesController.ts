@@ -1,37 +1,53 @@
-import { Request, Response } from 'express';
+import {NextFunction, Request, Response} from 'express';
 import { IssueService } from './issuesService';
+import {AppError} from "../../errors/errorHandler";
 
 const issueService = new IssueService();
 
 export class IssuesController {
-  async getAllIssues(req: Request, res: Response) {
+  async getAllIssues(req: Request, res: Response, next: NextFunction) {
     const issues = await issueService.getAllIssues();
     res.status(200).send(issues);
   }
 
-  async getIssueById(req: Request, res: Response) {
+  async getIssueById(req: Request, res: Response, next: NextFunction) {
     const targetIssue = await issueService.getIssueById(
       req.params.id
     );
+    if (!targetIssue) {
+      return next(
+          new AppError('No issue with this ID', 404)
+      );
+    }
     res.status(200).send(targetIssue);
   }
 
-  async updateIssue(req: Request, res: Response) {
+  async updateIssue(req: Request, res: Response, next: NextFunction) {
     const updatedIssue = await issueService.updateIssue(
       req.params.id,
       req.body
     );
+    if (!updatedIssue) {
+      return next(
+          new AppError('No issue with this ID', 404)
+      );
+    }
     res.status(200).send(updatedIssue);
   }
 
-  async deleteIssue(req: Request, res: Response) {
+  async deleteIssue(req: Request, res: Response, next: NextFunction) {
     const deletedIssue = await issueService.deleteIssue(
       req.params.id
     );
+    if (!deletedIssue) {
+      return next(
+          new AppError('No issue with this ID', 404)
+      );
+    }
     res.status(200).send({ deletedIssue });
   }
 
-  async createIssue(req: Request, res: Response) {
+  async createIssue(req: Request, res: Response, next: NextFunction) {
     const newIssue = await issueService.createIssue(
       req.body
     );

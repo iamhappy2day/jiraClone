@@ -1,16 +1,17 @@
 import express from 'express';
 import { ProjectController } from './projectController';
+import {catchErrors} from "../../errors/errorHandler";
 
 export const projectRouter = express.Router();
 const projectController = new ProjectController();
 
 projectRouter
   .route('/')
-  .get(projectController.getAllProjects)
-  .post(projectController.createProject);
+  .get(catchErrors(projectController.getAllProjects))
+  .post(catchErrors(projectController.createProject));
 
 projectRouter
   .route('/:id')
-  .get(projectController.getProjectById)
-  .put(projectController.updateProject)
-  .delete(projectController.deleteProject);
+  .get(catchErrors(projectController.getProjectById))
+  .put(catchErrors(projectController.updateProject))
+  .delete(catchErrors(projectController.deleteProject));

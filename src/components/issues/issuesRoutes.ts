@@ -1,15 +1,16 @@
 import express from 'express';
 import { IssuesController } from './issuesController';
+import { catchErrors } from '../../errors/errorHandler';
 export const issueRouter = express.Router();
 const issueController = new IssuesController();
 
 issueRouter
-    .route('/')
-    .get(issueController.getAllIssues)
-    .post(issueController.createIssue);
+  .route('/')
+  .get(catchErrors(issueController.getAllIssues))
+  .post(catchErrors(issueController.createIssue));
 
 issueRouter
-    .route('/:id')
-    .get(issueController.getIssueById)
-    .delete(issueController.deleteIssue)
-    .put(issueController.updateIssue);
+  .route('/:id')
+  .get(catchErrors(issueController.getIssueById))
+  .delete(catchErrors(issueController.deleteIssue))
+  .put(catchErrors(issueController.updateIssue));
