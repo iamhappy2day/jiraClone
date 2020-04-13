@@ -11,6 +11,7 @@ import {
 } from 'sequelize-typescript';
 import { iComment } from '../interfaces/iComment';
 import User from './user.model';
+import Issue from "./issue.model";
 
 @Table({
   tableName: 'comments',
@@ -37,4 +38,14 @@ export default class Comment extends Model
     {onDelete: 'CASCADE', hooks: true}
   )
   user: User;
+
+  @ForeignKey(() => Issue)
+  @Column
+  issueId: number;
+
+  @BelongsTo(
+      () => Issue,
+      {onDelete: 'CASCADE', hooks: true}
+  )
+  issue: Issue;
 }

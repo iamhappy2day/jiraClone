@@ -13,6 +13,8 @@ import { iUser } from '../interfaces/iUser';
 import Project from './project.model';
 import UserProject from './userProject.model';
 import Comment from './comment.model';
+import UserIssue from './userIssue.model';
+import Issue from './issue.model';
 
 @Table({
   tableName: 'user',
@@ -45,4 +47,10 @@ export default class User extends Model implements iUser {
 
   @HasMany(() => Comment)
   comments: Comment[];
+
+  @BelongsToMany(
+    () => Issue,
+    () => UserIssue
+  )
+  issues: Issue[];
 }
