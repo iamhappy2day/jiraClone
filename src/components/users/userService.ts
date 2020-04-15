@@ -12,7 +12,7 @@ export class UserService {
   }
 
   async getUserById(id: string) {
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(id)
     return user;
   }
 

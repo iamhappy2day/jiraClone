@@ -16,7 +16,6 @@ import {
 import User from './user.model';
 import UserProject from './userProject.model';
 import Issue from './issue.model';
-import Comment from './comment.model';
 
 @Table({
   tableName: 'project',

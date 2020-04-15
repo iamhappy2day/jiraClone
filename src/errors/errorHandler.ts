@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import {config} from "../config";
 
 export class AppError extends Error {
   private status: string;
@@ -27,11 +28,18 @@ export function errorHandler(
   err.statusCode = err.statusCode || 500;
 
   err.status = err.status || 'fail';
-
-  res.status(err.statusCode).send({
-    status: err.status,
-    message: err.message
-  });
+  if (config.APP_STATUS === 'development') {
+    res.status(err.statusCode).send({
+      status: err.status,
+      message: err.message,
+      stack: err.stack
+    });
+  } else if (config.APP_STATUS === 'production') {
+    res.status(err.statusCode).send({
+      status: err.status,
+      message: err.message
+    });
+  }
 }
 
 export function catchErrors(

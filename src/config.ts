@@ -7,11 +7,13 @@ declare const process: {
       DATABASE: string;
       DB_USERNAME: string;
       PASSWORD: string;
+      NODE_ENV: string;
   }
 };
 export const config = {
     PORT: process.env.PORT || 3000,
     DATABASE: process.env.DATABASE,
     DB_USERNAME: process.env.DB_USERNAME,
-    PASSWORD: process.env.PASSWORD
+    PASSWORD: process.env.PASSWORD,
+    APP_STATUS: process.env.NODE_ENV
 };

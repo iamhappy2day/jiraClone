@@ -2,12 +2,12 @@ import {
   AllowNull,
   AutoIncrement,
   BelongsToMany,
-  Column,
+  Column, DefaultScope,
   HasMany,
   Model,
   NotEmpty,
   PrimaryKey,
-  Table
+  Table, Unique
 } from 'sequelize-typescript';
 import { iUser } from '../interfaces/iUser';
 import Project from './project.model';
@@ -30,14 +30,21 @@ export default class User extends Model implements iUser {
   name: string;
 
   @AllowNull(false)
+  @Unique(true)
   @NotEmpty
   @Column
+
   email!: string;
 
   @AllowNull(false)
   @NotEmpty
   @Column
   password!: string;
+
+  @AllowNull(false)
+  @NotEmpty
+  @Column
+  passwordConfirm!: string;
 
   @BelongsToMany(
     () => Project,
@@ -53,4 +60,5 @@ export default class User extends Model implements iUser {
     () => UserIssue
   )
   issues: Issue[];
+
 }

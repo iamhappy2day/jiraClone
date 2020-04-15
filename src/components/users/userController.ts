@@ -2,6 +2,8 @@ import { Response, Request, NextFunction } from 'express';
 import { UserService } from './userService';
 import User from '../../models/user.model';
 import { AppError } from '../../errors/errorHandler';
+import {createUserValidation, updateUserValidation} from "../../middlewares/validation";
+
 const userService = new UserService();
 
 export class UserController {
@@ -31,9 +33,16 @@ export class UserController {
     res: Response,
     next: NextFunction
   ) {
+    const {error} = createUserValidation(req.body);
+    if(error) {
+      return next(
+          new AppError(error.message, 500)
+      );
+    }
     const newUser = await User.create({
       email: req.body.email,
       password: req.body.password,
+      passwordConfirm: req.body.passwordConfirm,
       name: req.body.name
     });
 
@@ -45,6 +54,12 @@ export class UserController {
     res: Response,
     next: NextFunction
   ) {
+    const {error} = updateUserValidation(req.body);
+    if(error) {
+      return next(
+          new AppError(error.message, 500)
+      );
+    }
     const updatedUser = await userService.updateUser(
       req.params.id,
       req.body
