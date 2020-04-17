@@ -2,6 +2,7 @@ import { Response, Request, NextFunction } from 'express';
 import { ProjectService } from './projectService';
 import Project from '../../models/project.model';
 import {AppError} from "../../errors/errorHandler";
+import {createProjectValidation, updateProjectValidation} from "../../middlewares/validation";
 
 const projectService = new ProjectService();
 
@@ -36,6 +37,10 @@ export class ProjectController {
     res: Response,
     next: NextFunction
   ) {
+    const {error} = createProjectValidation(req.body);
+    if (error) {
+      return next(new AppError(error.message, 400))
+    }
     const newProject = await Project.create({
       category: req.body.category,
       description: req.body.description,
@@ -54,6 +59,10 @@ export class ProjectController {
     res: Response,
     next: NextFunction
   ) {
+    const {error} = updateProjectValidation(req.body);
+    if (error) {
+      return next(new AppError(error.message, 400))
+    }
     const updatedProject = await projectService.updateProject(
       req.params.id,
       req.body
