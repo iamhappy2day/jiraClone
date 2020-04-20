@@ -8,6 +8,8 @@ declare const process: {
       DB_USERNAME: string;
       PASSWORD: string;
       NODE_ENV: string;
+      JWT_SECRET: string;
+      JWT_EXPIRES_IN: string;
   }
 };
 export const config = {
@@ -15,5 +17,7 @@ export const config = {
     DATABASE: process.env.DATABASE,
     DB_USERNAME: process.env.DB_USERNAME,
     PASSWORD: process.env.PASSWORD,
-    APP_STATUS: process.env.NODE_ENV
+    APP_STATUS: process.env.NODE_ENV,
+    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN
 };

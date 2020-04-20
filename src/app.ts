@@ -1,8 +1,4 @@
-import express, {
-  NextFunction,
-  Request,
-  Response
-} from 'express';
+import express from 'express';
 import { ApiRouter } from './routes/api.router';
 import { apiRoutes } from './routes/api.routes';
 import { checkIfRouteExists } from './middlewares/checkIfRouteExists';

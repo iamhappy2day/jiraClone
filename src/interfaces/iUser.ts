@@ -5,5 +5,5 @@ export interface iUser extends Model {
   name: string;
   email: string;
   password: string;
-  passwordConfirm: string;
+  passwordConfirm?: string | undefined;
 }
