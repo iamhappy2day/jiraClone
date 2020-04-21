@@ -10,7 +10,7 @@ userRouter
   .route('/')
 
   .get(
-    catchErrors(checkAuthentification),
+    // catchErrors(checkAuthentification),
     catchErrors(userController.getAllUsers)
   );
 // .post(catchErrors(userController.createUser));

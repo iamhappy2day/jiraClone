@@ -13,7 +13,7 @@ export const sequelize = new Sequelize(
   }
 );
 
-app.listen(config.PORT, () => {
+app.listen(config.PORT || 3000, () => {
   console.log('Server is running...');
   sequelize
     .authenticate()
@@ -26,6 +26,7 @@ app.listen(config.PORT, () => {
         await sequelize.sync(
             // {force: true }
             );
+
       } catch (e) {
         console.log(e.message);
       }

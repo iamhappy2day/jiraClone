@@ -1,11 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import { UserService } from './userService';
-import User from '../../models/user.model';
 import { AppError } from '../../errors/errorHandler';
-import {
-  createUserValidation,
-  updateUserValidation
-} from '../../middlewares/validation';
+import { updateUserValidation } from '../../middlewares/validation';
 
 const userService = new UserService();
 
