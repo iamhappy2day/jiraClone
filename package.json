@@ -7,7 +7,26 @@
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
     "build": "tsc -p",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll --forceExit --detectOpenHandles --runInBand",
+    "jest": {
+      "setupFilesAfterEnv": ["jest-extended"],
+      "moduleFileExtensions": [
+        "ts",
+        "tsx",
+        "js"
+      ],
+      "transform": {
+        "^.+\\.(ts|tsx)$": "ts-jest"
+      },
+      "globals": {
+        "ts-jest": {
+          "tsConfigFile": "tsconfig.json"
+        }
+      },
+      "testMatch": [
+        "**/__tests__/*.+(ts|tsx|js)"
+      ]
+    }
   },
   "author": "Sergei Revenko",
   "license": "ISC",
@@ -35,6 +54,7 @@
     "@types/sequelize": "^4.28.8",
     "@types/validator": "^12.0.1",
     "jest": "^25.4.0",
+    "jest-extended": "^0.11.5",
     "node-mocks-http": "^1.8.1",
     "nodemon": "^2.0.2",
     "prettier": "^2.0.2",

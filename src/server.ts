@@ -13,25 +13,28 @@ export const sequelize = new Sequelize(
   }
 );
 
-app.listen(config.PORT || 3000, () => {
-  console.log('Server is running...');
-  sequelize
-    .authenticate()
-    .then(async () => {
-      console.log(
-        'We successfully connected to data base!'
-      );
+export const server = app.listen(
+  config.PORT || 3000,
+  () => {
+    console.log('Server is running...');
+    sequelize
+      .authenticate()
+      .then(async () => {
+        console.log(
+          'We successfully connected to data base!'
+        );
 
-      try {
-        await sequelize.sync(
+        try {
+          await sequelize
+            .sync
             // {force: true }
-            );
-
-      } catch (e) {
-        console.log(e.message);
-      }
-    })
-    .catch((error: Error) => {
-      console.log(error.message);
-    });
-});
+            ();
+        } catch (e) {
+          console.log(e.message);
+        }
+      })
+      .catch((error: Error) => {
+        console.log(error.message);
+      });
+  }
+);

@@ -1,12 +1,17 @@
 import request from 'supertest';
-import { app } from '../../app';
 import * as newUser from '../mock-data/newUser.json';
-
+import { sequelize, server } from '../../server';
 
 const endpointURL = '/api/v1/auth/signup/';
 const endpointURL2 = '/api/v1/users/';
 
-describe(endpointURL2, () => {
+afterAll(function() {
+  sequelize.close();
+});
+
+describe('GET ALL USERS', () => {
+
+
   // it('POST' + endpointURL, async () => {
   //   const response = await request(app)
   //     .post(endpointURL)
@@ -16,9 +21,9 @@ describe(endpointURL2, () => {
   //   expect(response.body.password).toBe(newUser.password);
   // }, 30000);
 
-  test("GET ALL USERS", async () => {
-    const response = await request('http://localhost:3000/api/v1/users/');
-    console.log(response)
-    expect( typeof response).toBe('array')
-  })
+  // test("GET ALL USERS", async () => {
+  //   const response = await request('http://localhost:3000/api/v1/users/');
+  //   console.log(response)
+  //   expect( typeof response).toBe('array')
+  // })
 });
